@@ -138,7 +138,7 @@ const CreatePoint = () => {
             longitude,
             items
         }
-
+ 
         // console.log(data);
         await api.post('points', data);
 

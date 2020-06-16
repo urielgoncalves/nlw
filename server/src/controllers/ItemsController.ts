@@ -8,7 +8,8 @@ class ItemsController{
             return {
                 id: item.id,
                 name: item.title,
-                image_url: `http://localhost:3333/uploads/${item.image}`,
+                //image_url: `http://localhost:3333/uploads/${item.image}`,
+                mage_url: `http://192.168.0.185:3333/uploads/${item.image}`,
             } 
         });
     

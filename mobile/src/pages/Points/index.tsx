@@ -10,7 +10,7 @@ import api from '../../services/api';
 interface Item {
     id: number;
     title: string;
-    image_url: string;
+    imageUrl: string;
 }
 
 const Points = () => {
@@ -25,7 +25,7 @@ const Points = () => {
 
     function handleNavigateBack() {
         navigation.goBack();
-    }
+    } 
 
     function handleNavigateToDetail() {
         navigation.navigate('Detail');
@@ -63,7 +63,7 @@ const Points = () => {
                     {
                         items.map(item => (
                             <TouchableOpacity key={String(item.id)} style={styles.item} onPress={() => { }}>
-                                <SvgUri width={42} height={42} uri={item.image_url}></SvgUri>
+                                <SvgUri width={42} height={42} uri={item.imageUrl}></SvgUri>
                                 <Text style={styles.itemTitle}>
                                     {item.title}
                                 </Text>

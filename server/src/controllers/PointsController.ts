@@ -5,7 +5,7 @@ class PointsController{
     async index(request:Request, response:Response) {
         const {city, uf, items} = request.query;
 
-        console.log(city, uf, items);
+        //console.log(city, uf, items);
         const parsedItems = String(items)
             .split(',')
             .map(item=>Number(item.trim()));
@@ -17,6 +17,8 @@ class PointsController{
             .where('uf', String(uf))
             .distinct()
             .select('points.*');
+
+        return response.json(points);
     }
 
     async show(request: Request, response: Response) {
@@ -33,7 +35,7 @@ class PointsController{
             .where('point_items.pointId', id)
             .select('items.title');
 
-        return response.json(point);
+        return response.json({point, items});
     }
 
     async create(request:Request,response:Response){

@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import { SvgUri } from 'react-native-svg';
 import { Feather as Icon } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
 import * as Location from 'expo-location';
 import api from '../../services/api';
@@ -22,8 +22,17 @@ interface Point{
     longitude: number;
 }
 
+interface Params{
+    uf: string;
+    city: string;
+}
+
 const Points = () => {
     const navigation = useNavigation();
+    //Getting info from previous page
+    const route = useRoute();
+    const routeParams = route.params as Params;
+
     const [items, setItems] = useState<Item[]>([]);
     const [points, setPoints] = useState<Point[]>([]);
     const [selectedItems, setSelectedItems] = useState<number[]>([]);
@@ -58,15 +67,15 @@ const Points = () => {
     useEffect(()=>{
         api.get('points',{
             params:{
-                city: 'Dublin',
-                uf: 'Dublin',
-                items: [1,2]
+                city: routeParams.city,
+                uf: routeParams.uf,
+                items: selectedItems
             }
         }).then(response=>{
             //console.log(response.data);
             setPoints(response.data);
         })
-    });
+    },[selectedItems]);//When the selectedItems state changes, points should be reloaded
 
     function handleNavigateBack() {
         navigation.goBack();
